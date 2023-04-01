@@ -1,6 +1,7 @@
 package com.springboot.javarestapi.core.services.impl;
 
 import com.springboot.javarestapi.config.ApplicationProperties;
+import com.springboot.javarestapi.config.CredentialProperties;
 import com.springboot.javarestapi.core.services.GreetingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,10 +15,12 @@ public class GreetingServiceImpl implements GreetingService {
     @Value("${welcome.text}")
     private String welcomeText;
     private ApplicationProperties appProp;
+    private CredentialProperties jwtkey;
 
     @Autowired
-    public GreetingServiceImpl(ApplicationProperties appProp) {
+    public GreetingServiceImpl(ApplicationProperties appProp, CredentialProperties jwtkey) {
         this.appProp = appProp;
+        this.jwtkey = jwtkey;
     }
 
     @Override
