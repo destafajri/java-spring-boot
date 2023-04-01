@@ -14,14 +14,10 @@ public class GreetingServiceImpl implements GreetingService {
 
     @Value("${welcome.text}")
     private String welcomeText;
-    private ApplicationProperties appProp;
-    private CredentialProperties jwtkey;
-
     @Autowired
-    public GreetingServiceImpl(ApplicationProperties appProp, CredentialProperties jwtkey) {
-        this.appProp = appProp;
-        this.jwtkey = jwtkey;
-    }
+    private ApplicationProperties appProp;
+    @Autowired
+    private CredentialProperties jwtkey;
 
     @Override
     public String sayHello() {
