@@ -1,0 +1,39 @@
+# configuration
+app:
+  timezone: Asia/Jakarta
+credential:
+  APIkey: ${SECRET_KEY}
+
+# binding text example for end point get("/")
+welcome:
+    text: Welcome to desta app
+# identify server port running on default environment
+server:
+  port: 9001
+
+######## identify server for dev environment ########
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  # binding text example for end point get("/")
+  welcome:
+      text: Welcome to desta development area
+  # identify server port running on local for dev environment
+  server:
+    port: 9000
+
+######## identify server for prod environment ########
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+  # binding text example for end point get("/")
+  welcome:
+      text: Welcome to desta prod area
+  # identify server port running on local for dev environment
+  server:
+    port: 8000
+
