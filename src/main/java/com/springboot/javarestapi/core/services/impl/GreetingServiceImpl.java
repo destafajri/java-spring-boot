@@ -26,6 +26,6 @@ public class GreetingServiceImpl implements GreetingService {
     @Override
     public String sayHello() {
         TimeZone timezone = TimeZone.getTimeZone(appProp.getTimezone());
-        return welcomeText + " our timezone is "+ timezone.getDisplayName();
+        return welcomeText + " our timezone is " + timezone.getDisplayName();
     }
 }

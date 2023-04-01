@@ -1,3 +1,8 @@
+# logging
+logging:
+  level:
+    '[com.springboot.javarestapi]': TRACE
+
 # configuration
 app:
   timezone: Asia/Jakarta
