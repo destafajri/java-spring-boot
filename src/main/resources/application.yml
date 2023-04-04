@@ -9,9 +9,22 @@ app:
 credential:
   APIkey: ${SECRET_KEY}
 
+# database source
+spring:
+  datasource:
+    url: jdbc:postgresql://db.tjkpmbdcypziwibsrtso.supabase.co:5432/postgres?user=postgres&password=Mu1V2tQMvc2qrzBW
+    username: postgresql
+    password: Mu1V2tQMvc2qrzBW
+    driverClassName: org.postgresql.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
 # binding text example for end point get("/")
 welcome:
     text: Welcome to desta app
+
 # identify server port running on default environment
 server:
   port: 9001
@@ -22,12 +35,23 @@ spring:
   config:
     activate:
       on-profile: dev
-  # binding text example for end point get("/")
-  welcome:
-      text: Welcome to desta development area
-  # identify server port running on local for dev environment
-  server:
-    port: 9000
+  datasource:
+    url: jdbc:postgresql://db.tjkpmbdcypziwibsrtso.supabase.co:5432/postgres?user=postgres&password=Mu1V2tQMvc2qrzBW
+    username: postgresql
+    password: Mu1V2tQMvc2qrzBW
+    driverClassName: org.postgresql.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+# binding text example for end point get("/")
+welcome:
+    text: Welcome to desta development area
+
+# identify server port running on local for dev environment
+server:
+  port: 9000
 
 ######## identify server for prod environment ########
 ---
@@ -35,10 +59,21 @@ spring:
   config:
     activate:
       on-profile: prod
-  # binding text example for end point get("/")
-  welcome:
-      text: Welcome to desta prod area
-  # identify server port running on local for dev environment
-  server:
-    port: 8000
+  datasource:
+    url: jdbc:postgresql://db.tjkpmbdcypziwibsrtso.supabase.co:5432/postgres?user=postgres&password=Mu1V2tQMvc2qrzBW
+    username: postgresql
+    password: Mu1V2tQMvc2qrzBW
+    driverClassName: org.postgresql.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+# binding text example for end point get("/")
+welcome:
+    text: Welcome to desta prod area
+
+# identify server port running on local for prod environment
+server:
+  port: 8000
 
