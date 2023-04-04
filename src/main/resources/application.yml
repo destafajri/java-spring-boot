@@ -37,8 +37,8 @@ spring:
       on-profile: dev
   datasource:
     url: ${POSTGRES_DATABASE_URI_DEV}
-    username: ${POSTGRE_USERNAME_DEV}
-    password: ${POSTGRE_PASSWORD_DEV}
+    username: ${POSTGRES_USERNAME_DEV}
+    password: ${POSTGRES_PASSWORD_DEV}
     driverClassName: org.postgresql.Driver
   jpa:
     show-sql: true
@@ -51,7 +51,7 @@ welcome:
 
 # identify server port running on local for dev environment
 server:
-  port: 9000
+  port: ${POSTGRES_PASSWORD_DEV}
 
 ######## identify server for prod environment ########
 ---
@@ -61,8 +61,8 @@ spring:
       on-profile: prod
   datasource:
     url: ${POSTGRES_DATABASE_URI_PROD}
-    username: ${POSTGRE_USERNAME_PROD}
-    password: ${POSTGRE_PASSWORD_PROD}
+    username: ${POSTGRES_USERNAME_PROD}
+    password: ${POSTGRES_PASSWORD_PROD}
     driverClassName: org.postgresql.Driver
   jpa:
     show-sql: true

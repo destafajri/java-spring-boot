@@ -11,6 +11,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "users")
 public class UserEntity {
+
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "com.springboot.javarestapi.common.UUIDGenerator")
@@ -35,6 +36,6 @@ public class UserEntity {
     @Column(name = "created_at", nullable = false)
     private Timestamp created_at;
 
-    @Column(name = "updated_at", nullable = false)
+    @Column(name = "updated_at", nullable = true)
     private Timestamp updated_at;
 }

@@ -1,19 +1,15 @@
 package com.springboot.javarestapi.core.domain.entities;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.util.UUID;
 
 @Data
 @Entity
-@Table(name = "authors")
-public class AuthorEntity {
+@Table(name = "admins")
+public class AdminrEntity {
 
     @Id
     @GeneratedValue(generator = "uuid2")
