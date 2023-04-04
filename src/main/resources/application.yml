@@ -36,9 +36,9 @@ spring:
     activate:
       on-profile: dev
   datasource:
-    url: jdbc:postgresql://db.tjkpmbdcypziwibsrtso.supabase.co:5432/postgres?user=postgres&password=Mu1V2tQMvc2qrzBW
-    username: postgresql
-    password: Mu1V2tQMvc2qrzBW
+    url: ${POSTGRES_DATABASE_URI_DEV}
+    username: ${POSTGRE_USERNAME_DEV}
+    password: ${POSTGRE_PASSWORD_DEV}
     driverClassName: org.postgresql.Driver
   jpa:
     show-sql: true
@@ -60,9 +60,9 @@ spring:
     activate:
       on-profile: prod
   datasource:
-    url: jdbc:postgresql://db.tjkpmbdcypziwibsrtso.supabase.co:5432/postgres?user=postgres&password=Mu1V2tQMvc2qrzBW
-    username: postgresql
-    password: Mu1V2tQMvc2qrzBW
+    url: ${POSTGRES_DATABASE_URI_PROD}
+    username: ${POSTGRE_USERNAME_PROD}
+    password: ${POSTGRE_PASSWORD_PROD}
     driverClassName: org.postgresql.Driver
   jpa:
     show-sql: true
