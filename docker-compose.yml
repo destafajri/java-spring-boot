@@ -1,0 +1,19 @@
+version: '3.9'
+services:
+  db:
+    container_name: postgres_springboot
+    image: postgres:alpine
+    restart: always
+    volumes:
+      - postgres-springboot:/var/lib/postgresql
+    expose:
+      - 5432
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: mydb
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+volumes:
+  postgres-springboot:
+    name: postgres-springboot
