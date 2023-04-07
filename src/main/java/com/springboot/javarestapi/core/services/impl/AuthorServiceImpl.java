@@ -6,6 +6,7 @@ import com.springboot.javarestapi.core.domain.entities.UserEntity;
 import com.springboot.javarestapi.core.services.AuthorService;
 import com.springboot.javarestapi.repositories.AuthorRepository;
 import com.springboot.javarestapi.repositories.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,7 @@ public class AuthorServiceImpl implements AuthorService {
     private final AuthorRepository authorRepository;
 
     @Override
+    @Transactional
     public void createNewAuthor(AuthorCreateRequestDTO payload) {
         UserEntity user = new UserEntity();
         AuthorEntity author = new AuthorEntity();
