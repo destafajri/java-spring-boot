@@ -12,6 +12,8 @@ public class AdminCreateRequestDTO {
     @NotBlank
     private String name;
     @NotBlank
+    private String email;
+    @NotBlank
     private String username;
     @NotBlank
     private String password;

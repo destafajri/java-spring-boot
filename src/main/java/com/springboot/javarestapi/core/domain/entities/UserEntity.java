@@ -36,6 +36,6 @@ public class UserEntity {
     @Column(name = "created_at", nullable = false)
     private Timestamp created_at;
 
-    @Column(name = "updated_at", nullable = true)
+    @Column(name = "updated_at")
     private Timestamp updated_at;
 }

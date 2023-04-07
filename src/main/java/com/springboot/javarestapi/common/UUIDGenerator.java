@@ -10,7 +10,7 @@ public class UUIDGenerator implements IdentifierGenerator {
 
     @Override
     public Serializable generate(SharedSessionContractImplementor session, Object object) {
-        return UUID.randomUUID().toString();
+        return UUID.randomUUID();
     }
 
 }
