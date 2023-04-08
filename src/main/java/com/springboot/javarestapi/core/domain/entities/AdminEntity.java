@@ -9,7 +9,7 @@ import java.util.UUID;
 @Data
 @Entity
 @Table(name = "admins")
-public class AdminrEntity {
+public class AdminEntity {
 
     @Id
     @GeneratedValue(generator = "uuid2")

@@ -15,7 +15,7 @@ public class AuthorListResponse {
     private UUID userId;
     private String username;
     private String name;
-    private boolean is_active;
-    private Timestamp created_at;
-    private Timestamp updated_at;
+    private Boolean isActive;
+    private Timestamp createdAt;
+    private Timestamp updatedAt;
 }
