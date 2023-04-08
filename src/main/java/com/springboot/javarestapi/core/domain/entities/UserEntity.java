@@ -31,11 +31,11 @@ public class UserEntity {
     private String role;
 
     @Column(name = "is_active", nullable = false)
-    private boolean is_active;
+    private boolean isActive;
 
     @Column(name = "created_at", nullable = false)
-    private Timestamp created_at;
+    private Timestamp createdAt;
 
     @Column(name = "updated_at")
-    private Timestamp updated_at;
+    private Timestamp updatedAt;
 }

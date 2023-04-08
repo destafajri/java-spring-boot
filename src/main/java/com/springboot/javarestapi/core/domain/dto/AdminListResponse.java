@@ -16,7 +16,7 @@ public class AdminListResponse {
     private UUID userId;
     private String username;
     private String name;
-    private boolean is_active;
-    private Timestamp created_at;
-    private Timestamp updated_at;
+    private boolean isActive;
+    private Timestamp createdAt;
+    private Timestamp updatedAt;
 }
