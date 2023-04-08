@@ -22,7 +22,6 @@ public interface AuthorRepository extends JpaRepository<AuthorEntity, UUID> {
             " 'updated_at', updated_at" +
             ")" +
             " FROM authors JOIN users ON" +
-            " authors.user_id = users.id" +
-            " AND users.is_active = true", nativeQuery = true)
+            " authors.user_id = users.id", nativeQuery = true)
     List<LinkedHashMap<String, Object>> getListAuthor();
 }
