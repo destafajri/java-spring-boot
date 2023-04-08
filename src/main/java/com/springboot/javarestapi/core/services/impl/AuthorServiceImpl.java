@@ -56,8 +56,7 @@ public class AuthorServiceImpl implements AuthorService {
             return listAuthor;
         } catch (JsonProcessingException e) {
             // handle exception
+            return (List<AuthorListResponse>) e;
         }
-
-        return null;
     }
 }

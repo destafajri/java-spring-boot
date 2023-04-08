@@ -6,7 +6,6 @@ import com.springboot.javarestapi.core.services.AuthorService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,7 +26,7 @@ public class AuthorController {
         return ResponseEntity.created(URI.create("/author/create")).build();
     }
 
-    @GetMapping(value= "/list", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping("/list")
     public ResponseEntity<List<AuthorListResponse>> authorList() {
         return ResponseEntity.ok().body(authorService.getListAuthor());
     }
