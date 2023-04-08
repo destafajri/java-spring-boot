@@ -12,6 +12,8 @@ import com.springboot.javarestapi.repositories.AuthorRepository;
 import com.springboot.javarestapi.repositories.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -22,6 +24,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AuthorServiceImpl implements AuthorService {
 
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
     private final UserRepository userRepository;
     private final AuthorRepository authorRepository;
 
@@ -33,7 +37,7 @@ public class AuthorServiceImpl implements AuthorService {
 
         user.setEmail(payload.getEmail());
         user.setUsername(payload.getUsername());
-        user.setPassword(payload.getPassword());
+        user.setPassword(bCryptPasswordEncoder.encode(payload.getPassword()));
         user.setRole("author");
         user.setActive(true);
         user.setCreatedAt(Timestamp.valueOf(java.time.LocalDateTime.now()));

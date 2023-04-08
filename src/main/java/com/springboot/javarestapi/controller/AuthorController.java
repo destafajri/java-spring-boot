@@ -21,9 +21,9 @@ public class AuthorController {
     private final AuthorService authorService;
 
     @PostMapping("/create")
-    public ResponseEntity<Void> authorCreate(@RequestBody @Valid AuthorCreateRequestDTO dto) {
+    public ResponseEntity<String> authorCreate(@RequestBody @Valid AuthorCreateRequestDTO dto) {
         authorService.createNewAuthor(dto);
-        return ResponseEntity.created(URI.create("/author/create")).build();
+        return ResponseEntity.created(URI.create("/author/create")).body("SUCCESS");
     }
 
     @GetMapping("/list")
