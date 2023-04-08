@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface AuthorService {
 
-    public void createNewAuthor(AuthorCreateRequestDTO payload);
-    public List<AuthorListResponse> getListAuthor();
+    void createNewAuthor(AuthorCreateRequestDTO payload);
+    List<AuthorListResponse> getListAuthor();
 }

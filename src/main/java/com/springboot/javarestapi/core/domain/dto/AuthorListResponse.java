@@ -16,6 +16,6 @@ public class AuthorListResponse {
     private String username;
     private String name;
     private Boolean isActive;
-    private String createdAt;
-    private String updatedAt;
+    private Timestamp createdAt;
+    private Timestamp updatedAt;
 }

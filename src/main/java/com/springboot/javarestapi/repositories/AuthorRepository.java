@@ -1,11 +1,8 @@
 package com.springboot.javarestapi.repositories;
 
-import com.springboot.javarestapi.core.domain.dto.AuthorListResponse;
 import com.springboot.javarestapi.core.domain.entities.AuthorEntity;
-import jakarta.persistence.Tuple;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.LinkedHashMap;
@@ -27,5 +24,5 @@ public interface AuthorRepository extends JpaRepository<AuthorEntity, UUID> {
             " FROM authors JOIN users ON" +
             " authors.user_id = users.id" +
             " AND users.is_active = true", nativeQuery = true)
-    public List<LinkedHashMap<String, Object>> getListAuthor();
+    List<LinkedHashMap<String, Object>> getListAuthor();
 }
