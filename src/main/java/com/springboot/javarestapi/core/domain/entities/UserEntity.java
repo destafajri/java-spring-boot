@@ -21,11 +21,11 @@ public class UserEntity {
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
-    @Email
+    @Email(message = "must be email format")
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Pattern(regexp = "^[a-zA-Z0-9]([._-](?![._-])|[a-zA-Z0-9]){3,18}[a-zA-Z0-9]$")
+    @Pattern(regexp = "^[a-zA-Z0-9]([._-](?![._-])|[a-zA-Z0-9]){3,18}[a-zA-Z0-9]$", message = "must be username format")
     @Column(name = "username", nullable = false, unique = true)
     private String username;
 
