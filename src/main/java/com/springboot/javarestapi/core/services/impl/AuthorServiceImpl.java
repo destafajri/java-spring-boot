@@ -8,6 +8,7 @@ import com.springboot.javarestapi.core.domain.dto.AuthorListResponse;
 import com.springboot.javarestapi.core.domain.entities.AuthorEntity;
 import com.springboot.javarestapi.core.domain.entities.UserEntity;
 import com.springboot.javarestapi.core.services.AuthorService;
+import com.springboot.javarestapi.exception.InternalServerErrorException;
 import com.springboot.javarestapi.repositories.AuthorRepository;
 import com.springboot.javarestapi.repositories.UserRepository;
 import jakarta.transaction.Transactional;
@@ -60,7 +61,7 @@ public class AuthorServiceImpl implements AuthorService {
             return listAuthor;
         } catch (JsonProcessingException e) {
             // handle exception
-            return (List<AuthorListResponse>) e;
+            throw new InternalServerErrorException("Error get list author on database");
         }
     }
 }
