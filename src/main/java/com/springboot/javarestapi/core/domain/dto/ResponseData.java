@@ -17,5 +17,6 @@ public class ResponseData<T> {
     private Integer code;
     private HttpStatus status;
     private List<String> message = new ArrayList<>();
+    private List<T> Meta = new ArrayList<>();
     private T data;
 }
