@@ -33,12 +33,15 @@ public class AuthorController {
             for (ObjectError error : errors.getAllErrors()) {
                 responseData.getMessage().add(error.getDefaultMessage());
             }
+
+            responseData.setCode(HttpStatus.BAD_REQUEST.value());
             responseData.setStatus(HttpStatus.BAD_REQUEST);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseData);
         }
 
         authorService.createNewAuthor(dto);
 
+        responseData.setCode(HttpStatus.CREATED.value());
         responseData.setStatus(HttpStatus.CREATED);
         responseData.setMessage(Collections.singletonList("Success Create New Author"));
         return ResponseEntity.created(URI.create("/author/create")).body(responseData);
