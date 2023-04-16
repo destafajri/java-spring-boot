@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 
 import java.util.Collections;
 
-public class Pagintation {
+public class PagintationUtility {
 
     public static <T> ResponseData.WithMeta<T> createResultWithMetaDTO(Integer pages, Integer perPage, Integer total, String sortBy, String order, String message, T data) {
         Metadata meta = new Metadata();

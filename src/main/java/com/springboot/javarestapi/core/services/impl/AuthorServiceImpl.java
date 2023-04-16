@@ -9,6 +9,7 @@ import com.springboot.javarestapi.core.domain.entities.UserEntity;
 import com.springboot.javarestapi.core.services.AuthorService;
 import com.springboot.javarestapi.metadata.Metadata;
 import com.springboot.javarestapi.metadata.Pagintation;
+import com.springboot.javarestapi.metadata.PagintationUtility;
 import com.springboot.javarestapi.repositories.AuthorRepository;
 import com.springboot.javarestapi.repositories.UserRepository;
 import jakarta.transaction.Transactional;
@@ -54,13 +55,16 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public ResponseData.WithMeta<List<AuthorListResponse>> getListAuthor(Metadata meta) {
-        Sort sort = Sort.by(new Sort.Order(Pagintation.getOrderBy(meta.getOrderBy()), meta.getSortBy()));
+        Sort sort = Sort.by(new Sort.Order(PagintationUtility.getOrderBy(meta.getOrderBy()), meta.getSortBy()));
         Pageable pageable = PageRequest.of(meta.getPageForQuery(), meta.getPerPage(), sort);
         meta.setTotal(authorRepository.totalAuthor());
 
+        /**
+         * To do: Sorted doesn't work for native query
+         */
         List<LinkedHashMap<String, Object>> authors = authorRepository.getListAuthorNativeQuery(pageable.getPageNumber(), pageable.getPageSize(), String.valueOf(pageable.getSort()).replace(":", ""));
         JsonBuildObjectConverter<AuthorListResponse> data = new JsonBuildObjectConverter<>();
 
-        return Pagintation.createResultWithMetaDTO(meta.getPage(), meta.getPerPage(), meta.getTotal(), meta.getSortBy(), meta.getOrderBy(), "Success get list author", data.ConvertToJavaObject(authors));
+        return PagintationUtility.createResultWithMetaDTO(meta.getPage(), meta.getPerPage(), meta.getTotal(), meta.getSortBy(), meta.getOrderBy(), "Success get list author", data.ConvertToJavaObject(authors));
     }
 }
