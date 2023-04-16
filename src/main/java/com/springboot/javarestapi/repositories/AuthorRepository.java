@@ -1,8 +1,6 @@
 package com.springboot.javarestapi.repositories;
 
 import com.springboot.javarestapi.core.domain.entities.AuthorEntity;
-import jakarta.validation.constraints.NotNull;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
