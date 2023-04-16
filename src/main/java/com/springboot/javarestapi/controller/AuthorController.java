@@ -4,6 +4,7 @@ import com.springboot.javarestapi.core.domain.dto.AuthorCreateRequestDTO;
 import com.springboot.javarestapi.core.domain.dto.AuthorListResponse;
 import com.springboot.javarestapi.core.domain.dto.ResponseData;
 import com.springboot.javarestapi.core.services.AuthorService;
+import com.springboot.javarestapi.metadata.Metadata;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -48,7 +49,17 @@ public class AuthorController {
     }
 
     @GetMapping("/list")
-    public ResponseEntity<List<AuthorListResponse>> authorList() {
-        return ResponseEntity.ok().body(authorService.getListAuthor());
+    public ResponseEntity<ResponseData.WithMeta<List<AuthorListResponse>>> authorList(
+            @RequestParam(name = "page", defaultValue = "1") Integer pages,
+            @RequestParam(name = "perPage", defaultValue = "10") Integer perPage,
+            @RequestParam(name="sortBy", defaultValue = "created_at") String sortBy,
+            @RequestParam(name="orderBy", defaultValue = "asc") String orderBy) {
+        Metadata meta = new Metadata();
+        meta.setPage(pages);
+        meta.setPerPage(perPage);
+        meta.setSortBy(sortBy);
+        meta.setOrderBy(orderBy);
+
+        return ResponseEntity.ok().body(authorService.getListAuthor(meta));
     }
 }
