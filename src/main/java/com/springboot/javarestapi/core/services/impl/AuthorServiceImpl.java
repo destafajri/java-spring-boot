@@ -1,8 +1,5 @@
 package com.springboot.javarestapi.core.services.impl;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.springboot.javarestapi.common.JsonBuildObjectConverter;
 import com.springboot.javarestapi.core.domain.dto.AuthorCreateRequestDTO;
 import com.springboot.javarestapi.core.domain.dto.AuthorListResponse;
@@ -10,7 +7,6 @@ import com.springboot.javarestapi.core.domain.dto.ResponseData;
 import com.springboot.javarestapi.core.domain.entities.AuthorEntity;
 import com.springboot.javarestapi.core.domain.entities.UserEntity;
 import com.springboot.javarestapi.core.services.AuthorService;
-import com.springboot.javarestapi.exception.InternalServerErrorException;
 import com.springboot.javarestapi.metadata.Metadata;
 import com.springboot.javarestapi.metadata.Pagintation;
 import com.springboot.javarestapi.repositories.AuthorRepository;
