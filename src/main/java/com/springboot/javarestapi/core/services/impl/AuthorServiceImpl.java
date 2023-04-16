@@ -8,7 +8,6 @@ import com.springboot.javarestapi.core.domain.entities.AuthorEntity;
 import com.springboot.javarestapi.core.domain.entities.UserEntity;
 import com.springboot.javarestapi.core.services.AuthorService;
 import com.springboot.javarestapi.metadata.Metadata;
-import com.springboot.javarestapi.metadata.Pagintation;
 import com.springboot.javarestapi.metadata.PagintationUtility;
 import com.springboot.javarestapi.repositories.AuthorRepository;
 import com.springboot.javarestapi.repositories.UserRepository;
