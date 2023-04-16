@@ -3,17 +3,24 @@ package com.springboot.javarestapi.core.services.impl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.springboot.javarestapi.common.JsonBuildObjectConverter;
 import com.springboot.javarestapi.core.domain.dto.AuthorCreateRequestDTO;
 import com.springboot.javarestapi.core.domain.dto.AuthorListResponse;
+import com.springboot.javarestapi.core.domain.dto.ResponseData;
 import com.springboot.javarestapi.core.domain.entities.AuthorEntity;
 import com.springboot.javarestapi.core.domain.entities.UserEntity;
 import com.springboot.javarestapi.core.services.AuthorService;
 import com.springboot.javarestapi.exception.InternalServerErrorException;
+import com.springboot.javarestapi.metadata.Metadata;
+import com.springboot.javarestapi.metadata.Pagintation;
 import com.springboot.javarestapi.repositories.AuthorRepository;
 import com.springboot.javarestapi.repositories.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -50,18 +57,14 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public List<AuthorListResponse> getListAuthor() {
-        List<LinkedHashMap<String, Object>> authors = authorRepository.getListAuthor();
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            String jsonString = objectMapper.writeValueAsString(authors);
-            List<AuthorListResponse> listAuthor = objectMapper.readValue(jsonString, new TypeReference<>() {
-            });
+    public ResponseData.WithMeta<List<AuthorListResponse>> getListAuthor(Metadata meta) {
+        Sort sort = Sort.by(new Sort.Order(Pagintation.getOrderBy(meta.getOrderBy()), meta.getSortBy()));
+        Pageable pageable = PageRequest.of(meta.getPageForQuery(), meta.getPerPage(), sort);
+        meta.setTotal(authorRepository.totalAuthor());
 
-            return listAuthor;
-        } catch (JsonProcessingException e) {
-            // handle exception
-            throw new InternalServerErrorException("Error get list author on database");
-        }
+        List<LinkedHashMap<String, Object>> authors = authorRepository.getListAuthorNativeQuery(pageable.getPageNumber(), pageable.getPageSize(), String.valueOf(pageable.getSort()).replace(":", ""));
+        JsonBuildObjectConverter<AuthorListResponse> data = new JsonBuildObjectConverter<>();
+
+        return Pagintation.createResultWithMetaDTO(meta.getPage(), meta.getPerPage(), meta.getTotal(), meta.getSortBy(), meta.getOrderBy(), "Success get list author", data.ConvertToJavaObject(authors));
     }
 }
