@@ -53,17 +53,18 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
+    @Transactional
     public ResponseData.WithMeta<List<AuthorListResponse>> getListAuthor(Metadata meta) {
         Sort sort = Sort.by(new Sort.Order(PagintationUtility.getOrderBy(meta.getOrderBy()), meta.getSortBy()));
         Pageable pageable = PageRequest.of(meta.getPageForQuery(), meta.getPerPage(), sort);
-        meta.setTotal(authorRepository.totalAuthor());
 
         /**
          * To do: Sorted doesn't work for native query
          */
-        List<LinkedHashMap<String, Object>> authors = authorRepository.getListAuthorNativeQuery(pageable.getPageNumber(), pageable.getPageSize(), String.valueOf(pageable.getSort()).replace(":", ""));
+        List<LinkedHashMap<Object, Object>> authors = authorRepository.getListAuthorNativeQuery(pageable.getPageNumber(), pageable.getPageSize(), String.valueOf(pageable.getSort()).replace(":", ""));
         JsonBuildObjectConverter<AuthorListResponse> data = new JsonBuildObjectConverter<>();
 
-        return PagintationUtility.createResultWithMetaDTO(meta.getPage(), meta.getPerPage(), meta.getTotal(), meta.getSortBy(), meta.getOrderBy(), "Success get list author", data.ConvertToJavaObject(authors));
+        meta.setTotal(authorRepository.totalAuthor());
+        return PagintationUtility.createResultWithMetaDTO(meta.getPage(), meta.getPerPage(), meta.getTotal(), meta.getSortBy(), meta.getOrderBy(), "Success get list author", data.ConvertListObject(authors));
     }
 }
