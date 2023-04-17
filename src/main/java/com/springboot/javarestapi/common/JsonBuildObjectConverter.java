@@ -10,21 +10,7 @@ import java.util.List;
 
 public class JsonBuildObjectConverter<T> {
 
-    public T ConvertSingleObject(LinkedHashMap<Object, Object> singlesObject) {
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            String jsonString = objectMapper.writeValueAsString(singlesObject);
-            T result = objectMapper.readValue(jsonString, new TypeReference<>() {
-            });
-
-            return result;
-        } catch (JsonProcessingException e) {
-            // handle exception
-            throw new InternalServerErrorException("Error get detail on converter");
-        }
-    }
-
-    public List<T> ConvertListObject(List<LinkedHashMap<Object, Object>> list) {
+    public List<T> ConvertListToJavaObject(List<LinkedHashMap<Object, Object>> list) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             String jsonString = objectMapper.writeValueAsString(list);

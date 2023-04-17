@@ -1,8 +1,10 @@
 package com.springboot.javarestapi.core.domain.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.Data;
+import org.springframework.lang.Nullable;
 
 import java.sql.Timestamp;
 import java.util.UUID;
@@ -16,7 +18,8 @@ public class AuthorDetailResponse {
     private String username;
     private String name;
     private String role;
+    @JsonProperty("is_active")
     private boolean isActive;
-    private Timestamp createdAt;
-    private Timestamp updatedAt;
+    private String createdAt;
+    private String updatedAt;
 }

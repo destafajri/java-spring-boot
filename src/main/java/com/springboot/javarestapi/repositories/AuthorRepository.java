@@ -34,4 +34,19 @@ public interface AuthorRepository extends JpaRepository<AuthorEntity, UUID> {
 
     @Query(value = "SELECT COUNT(*) FROM authors", nativeQuery = true)
     Integer totalAuthor();
+
+    @Query(value = "SELECT json_build_object(" +
+            " 'id', authors.id," +
+            " 'user_id', user_id," +
+            " 'username', username," +
+            " 'name', name," +
+            " 'role', role," +
+            " 'is_active', is_active," +
+            " 'created_at', created_at," +
+            " 'updated_at', updated_at" +
+            ")" +
+            " FROM authors JOIN users ON" +
+            " authors.user_id = users.id" +
+            " WHERE authors.id = :id", nativeQuery = true)
+    LinkedHashMap<Object, Object> getDetailAuthorNativeQuery(@Param("id") UUID id);
 }
