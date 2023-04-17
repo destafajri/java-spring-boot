@@ -27,7 +27,7 @@ public interface AuthorRepository extends JpaRepository<AuthorEntity, UUID> {
             " ORDER BY :sort" +
             " LIMIT :limit" +
             " OFFSET :page", nativeQuery = true)
-    List<LinkedHashMap<String, Object>> getListAuthorNativeQuery(
+    List<LinkedHashMap<Object, Object>> getListAuthorNativeQuery(
             @Param("page") Integer offset,
             @Param("limit") Integer limit,
             @Param("sort") String sort);
