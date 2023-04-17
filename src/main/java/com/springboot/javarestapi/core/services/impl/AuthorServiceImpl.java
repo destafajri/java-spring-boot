@@ -1,9 +1,7 @@
 package com.springboot.javarestapi.core.services.impl;
 
 import com.springboot.javarestapi.common.JsonBuildObjectConverter;
-import com.springboot.javarestapi.core.domain.dto.AuthorCreateRequestDTO;
-import com.springboot.javarestapi.core.domain.dto.AuthorListResponse;
-import com.springboot.javarestapi.core.domain.dto.ResponseData;
+import com.springboot.javarestapi.core.domain.dto.*;
 import com.springboot.javarestapi.core.domain.entities.AuthorEntity;
 import com.springboot.javarestapi.core.domain.entities.UserEntity;
 import com.springboot.javarestapi.core.services.AuthorService;
@@ -23,6 +21,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -65,6 +64,24 @@ public class AuthorServiceImpl implements AuthorService {
         JsonBuildObjectConverter<AuthorListResponse> data = new JsonBuildObjectConverter<>();
 
         meta.setTotal(authorRepository.totalAuthor());
-        return PagintationUtility.createResultWithMetaDTO(meta.getPage(), meta.getPerPage(), meta.getTotal(), meta.getSortBy(), meta.getOrderBy(), "Success get list author", data.ConvertListObject(authors));
+        return ResponseUtility.createResultWithMetaDTO(meta.getPage(), meta.getPerPage(), meta.getTotal(), meta.getSortBy(), meta.getOrderBy(), "Success get list author", data.ConvertListToJavaObject(authors));
+    }
+
+    @Override
+    public ResponseData<AuthorDetailResponse> getDetailAuthor(UUID id) {
+        LinkedHashMap<Object, Object> authorMap = authorRepository.getDetailAuthorNativeQuery(id);
+
+        AuthorDetailResponse authorDetailResponse = new AuthorDetailResponse();
+
+        authorDetailResponse.setId(UUID.fromString((String) authorMap.get("id")));
+        authorDetailResponse.setUserId(UUID.fromString((String) authorMap.get("user_id")));
+        authorDetailResponse.setUsername((String) authorMap.get("username"));
+        authorDetailResponse.setName((String) authorMap.get("name"));
+        authorDetailResponse.setRole((String) authorMap.get("role"));
+        authorDetailResponse.setActive((Boolean) authorMap.get("is_active"));
+        authorDetailResponse.setCreatedAt((String) authorMap.get("created_at"));
+        authorDetailResponse.setUpdatedAt((String) authorMap.get("updated_at"));
+
+        return ResponseUtility.createResultDTO("Succes get detail author", authorDetailResponse);
     }
 }

@@ -19,7 +19,6 @@ public class Metadata {
 
     @JsonIgnore
     public Integer getPageForQuery() {
-        this.page = page;
         Integer pages = page;
         if (page <= 0) {
             page = 1;
