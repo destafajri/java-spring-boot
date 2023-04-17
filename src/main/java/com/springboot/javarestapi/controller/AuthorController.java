@@ -54,14 +54,14 @@ public class AuthorController {
     @GetMapping("/list")
     public ResponseEntity<ResponseData.WithMeta<List<AuthorListResponse>>> authorList(
             @RequestParam(name = "page", defaultValue = "1") Integer pages,
-            @RequestParam(name = "perPage", defaultValue = "10") Integer perPage,
-            @RequestParam(name = "sortBy", defaultValue = "created_at") String sortBy,
-            @RequestParam(name = "orderBy", defaultValue = "asc") String orderBy) {
+            @RequestParam(name = "per_page", defaultValue = "10") Integer perPages,
+            @RequestParam(name = "sort_by", defaultValue = "created_at") String sort,
+            @RequestParam(name = "order_by", defaultValue = "desc") String order) {
         Metadata meta = new Metadata();
         meta.setPage(pages);
-        meta.setPerPage(perPage);
-        meta.setSortBy(sortBy);
-        meta.setOrderBy(orderBy);
+        meta.setPerPage(perPages);
+        meta.setSortBy(sort);
+        meta.setOrderBy(order);
 
         return ResponseEntity.ok().body(authorService.getListAuthor(meta));
     }
