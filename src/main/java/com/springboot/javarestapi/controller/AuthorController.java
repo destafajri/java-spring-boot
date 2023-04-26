@@ -89,7 +89,19 @@ public class AuthorController {
 
         responseData.setCode(HttpStatus.ACCEPTED.value());
         responseData.setStatus(HttpStatus.ACCEPTED);
-        responseData.setMessage(Collections.singletonList("Success Update New Author"));
+        responseData.setMessage(Collections.singletonList("Success Update Author"));
+        return ResponseEntity.accepted().body(responseData);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<ResponseData<String>> updateAuthor(
+            @PathVariable UUID id) {
+        ResponseData responseData = new ResponseData<>();
+        authorService.deleteAuthor(id);
+
+        responseData.setCode(HttpStatus.ACCEPTED.value());
+        responseData.setStatus(HttpStatus.ACCEPTED);
+        responseData.setMessage(Collections.singletonList("Success Delete Author"));
         return ResponseEntity.accepted().body(responseData);
     }
 }

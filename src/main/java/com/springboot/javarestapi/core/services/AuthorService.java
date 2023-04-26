@@ -15,4 +15,6 @@ public interface AuthorService {
     ResponseData<AuthorDetailResponse> getDetailAuthor(UUID id);
 
     void updateAuthor(UUID id, AuthorUpdateRequestDTO dto);
+
+    void deleteAuthor(UUID id);
 }
