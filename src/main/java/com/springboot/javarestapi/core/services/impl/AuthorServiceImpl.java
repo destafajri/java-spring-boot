@@ -76,6 +76,7 @@ public class AuthorServiceImpl implements AuthorService {
         authorDetailResponse.setId(UUID.fromString((String) authorMap.get("id")));
         authorDetailResponse.setUserId(UUID.fromString((String) authorMap.get("user_id")));
         authorDetailResponse.setUsername((String) authorMap.get("username"));
+        authorDetailResponse.setEmail((String) authorMap.get("email"));
         authorDetailResponse.setName((String) authorMap.get("name"));
         authorDetailResponse.setRole((String) authorMap.get("role"));
         authorDetailResponse.setActive((Boolean) authorMap.get("is_active"));

@@ -42,6 +42,7 @@ public interface AuthorRepository extends JpaRepository<AuthorEntity, UUID> {
             " 'id', authors.id," +
             " 'user_id', user_id," +
             " 'username', username," +
+            " 'email', email," +
             " 'name', name," +
             " 'role', role," +
             " 'is_active', is_active," +
