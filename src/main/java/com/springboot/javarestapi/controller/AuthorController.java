@@ -1,9 +1,6 @@
 package com.springboot.javarestapi.controller;
 
-import com.springboot.javarestapi.core.domain.dto.AuthorCreateRequestDTO;
-import com.springboot.javarestapi.core.domain.dto.AuthorDetailResponse;
-import com.springboot.javarestapi.core.domain.dto.AuthorListResponse;
-import com.springboot.javarestapi.core.domain.dto.ResponseData;
+import com.springboot.javarestapi.core.domain.dto.*;
 import com.springboot.javarestapi.core.services.AuthorService;
 import com.springboot.javarestapi.metadata.Metadata;
 import jakarta.validation.Valid;
@@ -70,5 +67,29 @@ public class AuthorController {
     public ResponseEntity<ResponseData<AuthorDetailResponse>> authorDetail(
             @PathVariable UUID id) {
         return ResponseEntity.ok().body(authorService.getDetailAuthor(id));
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<ResponseData<String>> updateAuthor(
+            @PathVariable UUID id,
+            @RequestBody @Valid AuthorUpdateRequestDTO dto,
+            Errors errors) {
+        ResponseData responseData = new ResponseData<>();
+        if (errors.hasErrors()) {
+            for (ObjectError error : errors.getAllErrors()) {
+                responseData.getMessage().add(error.getDefaultMessage());
+            }
+
+            responseData.setCode(HttpStatus.BAD_REQUEST.value());
+            responseData.setStatus(HttpStatus.BAD_REQUEST);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseData);
+        }
+
+        authorService.updateAuthor(id, dto);
+
+        responseData.setCode(HttpStatus.ACCEPTED.value());
+        responseData.setStatus(HttpStatus.ACCEPTED);
+        responseData.setMessage(Collections.singletonList("Success Update New Author"));
+        return ResponseEntity.accepted().body(responseData);
     }
 }

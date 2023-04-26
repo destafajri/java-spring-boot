@@ -5,6 +5,7 @@ import com.springboot.javarestapi.core.domain.dto.*;
 import com.springboot.javarestapi.core.domain.entities.AuthorEntity;
 import com.springboot.javarestapi.core.domain.entities.UserEntity;
 import com.springboot.javarestapi.core.services.AuthorService;
+import com.springboot.javarestapi.exception.BadRequestException;
 import com.springboot.javarestapi.metadata.Metadata;
 import com.springboot.javarestapi.metadata.PagintationUtility;
 import com.springboot.javarestapi.repositories.AuthorRepository;
@@ -56,11 +57,10 @@ public class AuthorServiceImpl implements AuthorService {
     public ResponseData.WithMeta<List<AuthorListResponse>> getListAuthor(Metadata meta) {
         Sort sort = Sort.by(new Sort.Order(PagintationUtility.getOrderBy(meta.getOrderBy()), meta.getSortBy()));
         Pageable pageable = PageRequest.of(meta.getPageForQuery(), meta.getPerPage(), sort);
-
         /**
          * To do: Sorted doesn't work for native query
          */
-        List<LinkedHashMap<Object, Object>> authors = authorRepository.getListAuthorNativeQuery(pageable.getPageNumber(), pageable.getPageSize(), String.valueOf(pageable.getSort()).replace(":", ""));
+        List<LinkedHashMap<Object, Object>> authors = authorRepository.getListAuthorNativeQuery(pageable.getSort(), pageable.getPageNumber(), pageable.getPageSize());
         JsonBuildObjectConverter<AuthorListResponse> data = new JsonBuildObjectConverter<>();
 
         meta.setTotal(authorRepository.totalAuthor());
@@ -76,6 +76,7 @@ public class AuthorServiceImpl implements AuthorService {
         authorDetailResponse.setId(UUID.fromString((String) authorMap.get("id")));
         authorDetailResponse.setUserId(UUID.fromString((String) authorMap.get("user_id")));
         authorDetailResponse.setUsername((String) authorMap.get("username"));
+        authorDetailResponse.setEmail((String) authorMap.get("email"));
         authorDetailResponse.setName((String) authorMap.get("name"));
         authorDetailResponse.setRole((String) authorMap.get("role"));
         authorDetailResponse.setActive((Boolean) authorMap.get("is_active"));
@@ -83,5 +84,21 @@ public class AuthorServiceImpl implements AuthorService {
         authorDetailResponse.setUpdatedAt((String) authorMap.get("updated_at"));
 
         return ResponseUtility.createResultDTO("Succes get detail author", authorDetailResponse);
+    }
+
+    @Override
+    @Transactional
+    public void updateAuthor(UUID id, AuthorUpdateRequestDTO dto) {
+        AuthorEntity author = authorRepository.findById(id)
+                .orElseThrow(() -> new BadRequestException("invalid.authorId"));
+        UserEntity user = userRepository.findByIdUserIdAuthor(author.getUserId().getId());
+        user.setEmail(dto.getEmail() == null ? user.getEmail() : dto.getEmail());
+        user.setUsername(dto.getUsername() == null ? user.getUsername() : dto.getUsername());
+        user.setPassword(bCryptPasswordEncoder.encode(dto.getPassword()) == null ? user.getPassword() : bCryptPasswordEncoder.encode(dto.getPassword()));
+        user.setUpdatedAt(Timestamp.valueOf(java.time.LocalDateTime.now()));
+        author.setName(dto.getName() == null ? author.getName() : dto.getName());
+
+        userRepository.save(user);
+        authorRepository.save(author);
     }
 }

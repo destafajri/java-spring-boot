@@ -16,6 +16,7 @@ public class AuthorDetailResponse {
     private UUID id;
     private UUID userId;
     private String username;
+    private String email;
     private String name;
     private String role;
     @JsonProperty("is_active")

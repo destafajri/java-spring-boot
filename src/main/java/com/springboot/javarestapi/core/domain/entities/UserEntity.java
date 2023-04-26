@@ -1,9 +1,7 @@
 package com.springboot.javarestapi.core.domain.entities;
 
 import jakarta.persistence.*;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 

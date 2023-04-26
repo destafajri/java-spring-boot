@@ -24,7 +24,7 @@ public class Metadata {
             page = 1;
             return pages = 0;
         } else if (page > 0) {
-            return pages = pages - 1;
+            return pages = (pages - 1) * this.perPage;
         }
 
         return pages;
