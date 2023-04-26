@@ -90,8 +90,10 @@ public class AuthorServiceImpl implements AuthorService {
     @Transactional
     public void updateAuthor(UUID id, AuthorUpdateRequestDTO dto) {
         AuthorEntity author = authorRepository.findById(id)
-                .orElseThrow(() -> new BadRequestException("invalid.authorId"));
-        UserEntity user = userRepository.findByIdUserIdAuthor(author.getUserId().getId());
+                .orElseThrow(() -> new BadRequestException("author not found"));
+        UserEntity user = userRepository.findById(author.getUserId().getId())
+                .orElseThrow(() -> new BadRequestException("user not found"));
+
         user.setEmail(dto.getEmail() == null ? user.getEmail() : dto.getEmail());
         user.setUsername(dto.getUsername() == null ? user.getUsername() : dto.getUsername());
         user.setPassword(bCryptPasswordEncoder.encode(dto.getPassword()) == null ? user.getPassword() : bCryptPasswordEncoder.encode(dto.getPassword()));
@@ -100,5 +102,17 @@ public class AuthorServiceImpl implements AuthorService {
 
         userRepository.save(user);
         authorRepository.save(author);
+    }
+
+    @Override
+    @Transactional
+    public void deleteAuthor(UUID id) {
+        AuthorEntity author = authorRepository.findById(id)
+                .orElseThrow(() -> new BadRequestException("author not found"));
+        UserEntity user = userRepository.findById(author.getUserId().getId())
+                .orElseThrow(() -> new BadRequestException("user not found"));
+
+        authorRepository.delete(author);
+        userRepository.delete(user);
     }
 }
