@@ -6,6 +6,7 @@ import com.springboot.javarestapi.core.domain.entities.AuthorEntity;
 import com.springboot.javarestapi.core.domain.entities.UserEntity;
 import com.springboot.javarestapi.core.services.AuthorService;
 import com.springboot.javarestapi.exception.BadRequestException;
+import com.springboot.javarestapi.exception.NotFoundException;
 import com.springboot.javarestapi.metadata.Metadata;
 import com.springboot.javarestapi.metadata.PagintationUtility;
 import com.springboot.javarestapi.repositories.AuthorRepository;
@@ -90,9 +91,9 @@ public class AuthorServiceImpl implements AuthorService {
     @Transactional
     public void updateAuthor(UUID id, AuthorUpdateRequestDTO dto) {
         AuthorEntity author = authorRepository.findById(id)
-                .orElseThrow(() -> new BadRequestException("author not found"));
+                .orElseThrow(() -> new NotFoundException("author not found"));
         UserEntity user = userRepository.findById(author.getUserId().getId())
-                .orElseThrow(() -> new BadRequestException("user not found"));
+                .orElseThrow(() -> new NotFoundException("user not found"));
 
         user.setEmail(dto.getEmail() == null ? user.getEmail() : dto.getEmail());
         user.setUsername(dto.getUsername() == null ? user.getUsername() : dto.getUsername());
@@ -108,9 +109,9 @@ public class AuthorServiceImpl implements AuthorService {
     @Transactional
     public void deleteAuthor(UUID id) {
         AuthorEntity author = authorRepository.findById(id)
-                .orElseThrow(() -> new BadRequestException("author not found"));
+                .orElseThrow(() -> new NotFoundException("author not found"));
         UserEntity user = userRepository.findById(author.getUserId().getId())
-                .orElseThrow(() -> new BadRequestException("user not found"));
+                .orElseThrow(() -> new NotFoundException("user not found"));
 
         authorRepository.delete(author);
         userRepository.delete(user);
