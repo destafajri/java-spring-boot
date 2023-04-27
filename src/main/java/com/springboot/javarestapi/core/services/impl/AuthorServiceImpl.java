@@ -5,7 +5,6 @@ import com.springboot.javarestapi.core.domain.dto.*;
 import com.springboot.javarestapi.core.domain.entities.AuthorEntity;
 import com.springboot.javarestapi.core.domain.entities.UserEntity;
 import com.springboot.javarestapi.core.services.AuthorService;
-import com.springboot.javarestapi.exception.BadRequestException;
 import com.springboot.javarestapi.exception.NotFoundException;
 import com.springboot.javarestapi.metadata.Metadata;
 import com.springboot.javarestapi.metadata.PagintationUtility;
