@@ -1,3 +1,4 @@
 Rest-API using JAVA SpringBoot
 
 - [Starter Project Dependency](https://start.spring.io/#!type=maven-project&language=java&platformVersion=3.0.5&packaging=jar&jvmVersion=11&groupId=com.springboot&artifactId=java-rest-api&name=java-rest-api&description=Springboot-rest-api&packageName=com.springboot.java-rest-api&dependencies=web,devtools,lombok,configuration-processor,data-jpa,postgresql,validation)
+- [Postman Collection](https://gold-station-218460.postman.co/workspace/Desta-Java~557fe1be-df97-4ea7-a026-ddb86c919e47/collection/22138766-45e0743a-bd6b-4eea-ad19-139eeb6a6cc1?action=share&creator=22138766)
