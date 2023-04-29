@@ -60,11 +60,19 @@ public class AuthorServiceImpl implements AuthorService {
         /**
          * To do: Sorted doesn't work for native query
          */
-        List<LinkedHashMap<Object, Object>> authors = authorRepository.getListAuthorNativeQuery(pageable.getSort(), pageable.getPageNumber(), pageable.getPageSize());
+        List<LinkedHashMap<Object, Object>> authors = authorRepository
+                .getListAuthorNativeQuery(pageable.getSort(), pageable.getPageNumber(), pageable.getPageSize());
         JsonBuildObjectConverter<AuthorListResponse> data = new JsonBuildObjectConverter<>();
 
         meta.setTotal(authorRepository.totalAuthor());
-        return ResponseUtility.createResultWithMetaDTO(meta.getPage(), meta.getPerPage(), meta.getTotal(), meta.getSortBy(), meta.getOrderBy(), "Success get list author", data.ConvertListToJavaObject(authors));
+        return ResponseUtility.createResultWithMetaDTO(
+                meta.getPage(),
+                meta.getPerPage(),
+                meta.getTotal(),
+                meta.getSortBy(),
+                meta.getOrderBy(),
+                "Success get list author",
+                data.ConvertListToJavaObject(authors));
     }
 
     @Override
