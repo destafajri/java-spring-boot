@@ -1,10 +1,10 @@
 package com.springboot.javarestapi.common;
 
-import java.io.Serializable;
-import java.util.UUID;
-
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.id.IdentifierGenerator;
+
+import java.io.Serializable;
+import java.util.UUID;
 
 public class UUIDGenerator implements IdentifierGenerator {
 
