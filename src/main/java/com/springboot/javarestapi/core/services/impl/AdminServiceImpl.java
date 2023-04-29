@@ -21,9 +21,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -57,27 +55,15 @@ public class AdminServiceImpl implements AdminService {
     public ResponseData.WithMeta<List<AdminListResponse>> getListAdmin(Metadata meta) {
         Sort sort = Sort.by(new Sort.Order(PagintationUtility.getOrderBy(meta.getOrderBy()), meta.getSortBy()));
         Pageable pageable = PageRequest.of(meta.getPageForQuery(), meta.getPerPage(), sort);
-        List<AdminListResponse> adminListResponses = new ArrayList<>();
-        AdminListResponse adminResponse = new AdminListResponse();
 
         /**
          * sorting doesn't work
+         *
+         * And return value still got some bug
          */
-        List<List<String>> adminResp = adminRepository.getAdminList(pageable.getSort(), pageable.getPageNumber(), pageable.getPageSize());
-        for (List<String> admins : adminResp) {
-            for (int i = 0; i < admins.size() - 6; i++) {
-                adminResponse.setId(UUID.fromString(admins.get(i)));
-                adminResponse.setUserId(UUID.fromString(admins.get(i + 1)));
-                adminResponse.setUsername(admins.get(i + 2));
-                adminResponse.setName(admins.get(i + 3));
-                adminResponse.setActive(Boolean.parseBoolean(admins.get(i + 4)));
-                adminResponse.setCreatedAt(admins.get(i + 5));
-                adminResponse.setUpdatedAt(admins.get(i + 6));
-            }
-            adminListResponses.add(adminResponse);
-        }
+//        List<AdminListResponse> adminResp = adminRepository.getAdminList(pageable.getSort(), pageable.getPageNumber(), pageable.getPageSize());
 
         meta.setTotal((int) adminRepository.count());
-        return ResponseUtility.createResultWithMetaDTO(meta.getPage(), meta.getPerPage(), meta.getTotal(), meta.getSortBy(), meta.getOrderBy(), "Success get list admin", adminListResponses);
+        return ResponseUtility.createResultWithMetaDTO(meta.getPage(), meta.getPerPage(), meta.getTotal(), meta.getSortBy(), meta.getOrderBy(), "Success get list admin", null);
     }
 }
