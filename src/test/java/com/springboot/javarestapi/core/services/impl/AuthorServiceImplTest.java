@@ -124,6 +124,9 @@ class AuthorServiceImplTest {
         assertEquals("user1", response.getData().getUsername());
         assertEquals("user1@example.com", response.getData().getEmail());
         assertEquals("John Doe", response.getData().getName());
+        assertTrue(response.getData().isActive());
+        assertTrue(response.getData().getCreatedAt() != null);
+        assertTrue(response.getData().getUpdatedAt() == null);
         assertEquals("Succes get detail author", response.getMessage().get(0));
     }
 
@@ -172,8 +175,7 @@ class AuthorServiceImplTest {
         verify(authorRepository, times(1)).save(any(AuthorEntity.class));
         assertEquals(dto.getEmail(), existingUser.getEmail());
         assertEquals(dto.getUsername(), existingUser.getUsername());
-        assertEquals("hashedPassword", existingUser
-                .getPassword());
+        assertEquals("hashedPassword", existingUser.getPassword());
         assertEquals(dto.getName(), existingAuthor.getName());
     }
 
@@ -240,8 +242,8 @@ class AuthorServiceImplTest {
         authorMap.put("name", name);
         authorMap.put("role", "author");
         authorMap.put("is_active", true);
-        authorMap.put("created_at", "2023-05-24 12:34:56");
-        authorMap.put("updated_at", "2023-05-24 12:34:56");
+        authorMap.put("created_at", Timestamp.valueOf(java.time.LocalDateTime.now()).toString());
+        authorMap.put("updated_at", null);
         return authorMap;
     }
 }
